@@ -183,38 +183,40 @@ sap.ui.define([
             this.getOwnerComponent().getRouter().navTo("OrderDetail", { num: SelectedNum });
         },
 
-        //행 삭제
+        //선택 행 삭제
         onDeleteOrder: async function () {
-           const oTable = this.byId("RequestTable");
-           const aSelectedIndicies = oTable.getSelectedIndices();
+           const aSelectedIndicies = this.byId("RequestTable").getSelectedIndices();
 
-            if(aSelectedIndicies.length ===0){
-            sap.m.MessageToast.show("삭제할 항목을 선택해주세요");
-            return;
+            if(aSelectedIndicies === 0){
+                sap.m.MessageToast.show("삭제할 항목을 선택해주세요.");
+                return;
             }
-            
-            const oModel = this.getOwnerComponent().getModel("RequestModel");
 
-            const aDeletePromises = aSelectedIndicies.map(iIndex => {
-                const oContext = oTable.getContextByIndex(iIndex);
-
-                if(!oContext){
-                    console.error("값없음")
+            MessageBox.confirm("선택한 항목을 삭제하시겠습니까?",{
+                title: "삭제 확인",
+                actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+                onClose: async (oAction) => {
+                    if(oAction === sap.m.MessageBox.Action.YES){
+                        const aContexts = this.byId("RequestTable").getBinding("rows").getContexts();
+                        aSelectedIndicies.forEach((idx) =>{
+                         const oContext = aContexts[idx];
+                         if(oContext){
+                             oContext.delete();
+                         }
+                        })
+                        
+                        try {
+                            await Promise.all(aDeletePromises);
+                            sap.m.MessageBox.show("선택된 항목이 삭제되었습니다.");
+                            this.getOwnerComponent().getModel("RequestModel").refresh(true);
+                        } catch (err) {
+                            console.error("삭제 처리 중 오류:", err);
+                        }
+                    }
+                    
                 }
-
-                return oContext.delete().catch((err)=>{
-                    console.error(`삭제실패: ${err.message}`);
-                    MessageBox.error(`삭제실패: ${err.message}`);
-                });
-            });
-            try {
-                await Promise.all(aDeletePromises);
-                MessageBox.show("선택된 항목이 삭제되었습니다.");
-                oModel.refresh();
-            } catch(err){
-                console.error(err);
-            }
-        },
+            })
+        },       
         
         onQuickDateRangeChange: function (oEvent) {
             const key = oEvent.getSource().getSelectedKey();
