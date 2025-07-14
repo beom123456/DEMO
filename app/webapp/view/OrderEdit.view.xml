@@ -1,0 +1,135 @@
+<mvc:View
+    controllerName="project1.controller.OrderEdit"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout">
+
+    <f:DynamicPage
+        id="editPage"
+        headerExpanded="false"
+        showFooter="true"
+        toggleHeaderOnTitleClick="true">
+
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <OverflowToolbarButton
+                            id="BackButton"
+                            type="Transparent"
+                            icon="sap-icon://nav-back"
+                            press="onBack" />
+                        <Title text="물품 요청 수정" />
+                    </HBox>
+                </f:heading>
+                <f:snappedContent>
+                    <form:SimpleForm layout="ResponsiveGridLayout">
+                        <form:content>
+                            <HBox renderType="Bare" width="100%">
+                                <Panel headerText="📝요청 정보 수정" width="48%" expandable="false"  height="750px" class="sapUiSmallMarginEnd">
+                                    <VBox class="sapUiContentPadding" height="100%" renderType="Bare">
+                                        <HBox width="100%">
+                                            <VBox width="50%">
+                                                <Label text="요청 번호" />
+                                                <Text id="EditRequestNumber" />
+                                            </VBox>
+                                            <VBox width="50%">
+                                                <Label text="요청 일자" />
+                                                <Text id="EditRequestDate" />
+                                            </VBox>
+                                        </HBox>
+
+                                        <VBox width="100%">
+                                            <Label text="요청 물품" />
+                                            <Input id="EditProductName" maxLength="10" placeholder="10자 이내로 입력하세요" width="100%" />
+                                        </VBox>
+
+                                        <VBox width="100%">
+                                            <Label text="요청 수량(개)" />
+                                            <Input id="EditProductQuantity" type="Text" liveChange=".onFormatCurrencyInput" placeholder="1개 이상 입력가능." width="100%" />
+                                        </VBox>
+
+                                        <VBox width="100%">
+                                            <Label text="개당 가격()" />
+                                            <Input id="EditEstimatedPrice" liveChange=".onFormatCurrencyInput" width="100%" />
+                                        </VBox>
+
+                                        <VBox width="100%">
+                                            <Label text="요청 총 가격" />
+                                            <Text id="TotalPriceTextEdit" text="0 원" />
+                                        </VBox>
+
+                                        <VBox width="100%">
+                                            <Label text="요청자" />
+                                            <Input id="EditRequestor" liveChange=".onValidateInput" placeholder="숫자는 입력할 수 없습니다." width="100%" />
+                                        </VBox>
+
+                                        <VBox width="100%">
+                                            <Label text="요청 사유" />
+                                            <Input id="EditReason" maxLength="20" placeholder="20자 이내로 입력하세요" width="100%" />
+                                        </VBox>
+
+
+       
+                                    </VBox>
+                                </Panel>
+
+                                <Panel id="EditPreviewBox" headerText="요청 미리보기" width="48%" expandable="true" expanded="true" visible="true" height="750px">
+                                    <VBox class="sapUiContentPadding" height="100%">
+                                        <Text text="물품 구매 요청서" textAlign="Center" class="sapUiMediumMarginBottom sapUiMediumMarginTop" />
+
+                                        <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                                            <Text text="작성일: {preview>/ReqDay}" />
+                                            <Text text="요청 부서: 구매부" class="sapUiTinyMarginBegin" />
+                                        </HBox>
+
+                                        <Table width="100%" inset="false">
+                                            <columns>
+                                                <Column><Text text="요청번호" /></Column>
+                                                <Column><Text text="요청일자" /></Column>
+                                                <Column><Text text="요청물품" /></Column>
+                                                <Column><Text text="요청수량" /></Column>
+                                                <Column><Text text="개당가격" /></Column>
+                                                <Column><Text text="총가격" /></Column>
+                                                <Column><Text text="요청사유" /></Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem>
+                                                    <cells>
+                                                        <Text text="{preview>/ReqNumber}" />
+                                                        <Text text="{preview>/ReqDay}" />
+                                                        <Text text="{preview>/ReqGoods}" />
+                                                        <Text text="{preview>/ReqQuantity}" />
+                                                        <Text text="{preview>/ReqPrice}" />
+                                                        <Text text="{preview>/TotalPrice}" />
+                                                        <Text text="{preview>/Reason}" />
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+
+                                        <HBox justifyContent="End" class="sapUiMediumMarginTop">
+                                            <Text text="신청자: {preview>/Requestor}" />
+                                        </HBox>
+                                    </VBox>
+                                </Panel>
+                            </HBox>
+                        </form:content>
+                    </form:SimpleForm>
+                </f:snappedContent>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button id="BtnPreviewEdit" text="미리보기" icon="sap-icon://display" type="Emphasized" class="sapUiTinyMarginBegin" press="onPreview" />
+                                            <Button id="BtnResetEdit" text="초기화" icon="sap-icon://refresh" type="Default" class="sapUiTinyMarginBegin" press=".onClearField" />
+                                            <Button id="BtnSubmitEdit" text="수정 완료" icon="sap-icon://accept" type="Emphasized" class="sapUiTinyMarginBegin" press=".onSubmitEdit" />
+                                            <Button id="BtnCancelEdit" text="취소" icon="sap-icon://decline" type="Reject" class="sapUiTinyMarginBegin" press=".cancelBack" />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

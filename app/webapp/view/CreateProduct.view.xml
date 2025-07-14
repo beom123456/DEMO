@@ -1,0 +1,104 @@
+<mvc:View
+  controllerName="project1.controller.CreateProduct"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:form="sap.ui.layout.form"
+  xmlns:layout="sap.ui.layout"
+  xmlns:unified="sap.ui.unified">
+
+  <f:DynamicPage id="createProductPage" headerExpanded="false" showFooter="true" toggleHeaderOnTitleClick="true">
+
+    <f:title>
+      <f:DynamicPageTitle>
+        <f:heading>
+          <HBox>
+            <OverflowToolbarButton type="Transparent" icon="sap-icon://nav-back" press="onBack" />
+            <Title text="물품 등록" />
+          </HBox>
+        </f:heading>
+        <f:snappedContent>
+          <form:SimpleForm layout="ResponsiveGridLayout">
+            <form:content>
+              <HBox renderType="Bare" width="100%">
+                <!-- 물품 등록 Panel -->
+                <Panel headerText="물품 정보 입력" width="48%" expandable="false" expanded="true" height="750px" class="sapUiSmallMarginEnd">
+                  <VBox class="sapUiContentPadding" height="100%" renderType="Bare">
+
+                    <VBox width="100%">
+                      <Label text="물품 명" />
+                      <Input id="ProductName" placeholder="물품 명을 입력하세요" width="100%" />
+                    </VBox>
+
+                    <VBox width="100%">
+                      <Label text="단위" />
+                      <Input id="ProductUnit" placeholder="예: 박스, 개" width="100%" liveChange="onFormatCurrencyInput" />
+                    </VBox>
+
+                    <VBox width="100%">
+                      <Label text="단가" />
+                      <Input id="ProductPrice" placeholder="가격을 입력하세요" width="100%" liveChange="onFormatCurrencyInput"/>
+                    </VBox>
+
+                    <VBox width="100%">
+                      <Label text="최대 수량" />
+                      <Input id="ProductMaxQty" placeholder="최대 수량 입력" width="100%" liveChange="onFormatCurrencyInput"/>
+                    </VBox>
+
+                    <VBox width="100%">
+                      <Label text="이미지 업로드" class="sapUiSmallMarginTop sapUiSmallMarginBottom" />
+                      <unified:FileUploader
+                        id="ProductImageUploader"
+                        name="productImage"
+                        uploadUrl="/upload/image"
+                        sendXHR="true"
+                        change="onImageUpload"
+                        uploadComplete="onUploadComplete"
+                        uploadOnChange="false"
+                        fileType="jpg,png,jpeg"
+                        width="100%" />
+                    </VBox>
+
+                    <VBox width="100%">
+                      <Label text="비고" />
+                      <TextArea id="ProductNote" placeholder="설명 또는 비고 내용" width="100%" rows="3" />
+                    </VBox>
+
+                    <Button text="등록" icon="sap-icon://add" type="Accept" press="onCreate" />
+                  </VBox>
+                </Panel>
+
+                <!-- 미리보기 Panel -->
+                <Panel id="PreviewProductBox" headerText="물품 미리보기" width="48%" expandable="true" expanded="true" visible="true" height="750px">
+                  <VBox class="sapUiContentPadding" height="100%">
+                    <Text text="물품 미리보기" textAlign="Center" class="sapUiMediumMarginBottom sapUiMediumMarginTop" />
+
+                    <Image id="PreviewImage" src="" width="100px" />
+
+                    <Text id="PreviewName" text="" />
+                    <Text id="PreviewUnit" text="" />
+                    <Text id="PreviewPrice" text="" />
+                    <Text id="PreviewQty" text="" />
+                    <Text id="PreviewNote" text="" />
+
+                  </VBox>
+                </Panel>
+              </HBox>
+            </form:content>
+          </form:SimpleForm>
+        </f:snappedContent>
+      </f:DynamicPageTitle>
+    </f:title>
+
+    <f:footer>
+      <OverflowToolbar>
+        <ToolbarSpacer />
+        <Button text="미리보기" icon="sap-icon://display" type="Emphasized" press="onPreview" />
+        <Button text="초기화" icon="sap-icon://refresh" press="onClear" />
+        <Button text="등록" icon="sap-icon://add" type="Accept" press="onCreate" />
+        <Button text="취소" icon="sap-icon://decline" type="Reject" press="onCancel" />
+      </OverflowToolbar>
+    </f:footer>
+
+  </f:DynamicPage>
+</mvc:View>

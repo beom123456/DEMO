@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="ProductSelectDialog" title="상품 선택" draggable="true" resizable="true" contentWidth="600px">
+    <VBox class="sapUiContentPadding">
+      <SearchField id="ProductSearchField" placeholder="상품명 검색" liveChange="onSearchProduct" width="100%" />
+      <List id="ProductList"
+            items="{ProductModel>/Products}"
+            mode="SingleSelectMaster"
+            selectionChange="onSelectProduct">
+        <StandardListItem title="{ProductModel>name}" description="단위:  {ProductModel>unit}개 / 개당가격: {ProductModel>price}원" />
+      </List>
+    </VBox>
+    <beginButton>
+      <Button text="닫기" press="onCloseProductDialog" />
+    </beginButton>
+  </Dialog>
+</core:FragmentDefinition>

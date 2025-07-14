@@ -1,0 +1,114 @@
+<mvc:View controllerName="project1.controller.Detail"
+		  xmlns="sap.m"
+		  xmlns:uxap="sap.uxap"
+		  xmlns:l="sap.ui.layout"
+		  xmlns:mvc="sap.ui.core.mvc"
+		  
+		  height="100%">
+	<uxap:ObjectPageLayout
+			id="objectPageNoticeDetail"
+			enableLazyLoading="true"
+			upperCaseAnchorBar="false"
+			showFooter="true"
+			toggleAnchorBar="detailChange"
+			isChildPage="true">
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:heading>
+					<Title text="{detailData>/title}" />
+				</uxap:heading>
+				<uxap:navigationActions>
+					<OverflowToolbarButton id="enterFullScreenBtn"
+										   type="Transparent"
+										   icon="sap-icon://full-screen"
+										   press=".handleFullScreen"
+										   visible="{=${Component>/actionButtonsInfo/midColumn/fullScreen} !== null}" />
+					<OverflowToolbarButton id="exitFullScreenBtn"
+										   type="Transparent"
+										   icon="sap-icon://exit-full-screen"
+										   press=".handleExitFullScreen"
+										   visible="{=${Component>/actionButtonsInfo/midColumn/exitFullScreen} !== null}" />
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://decline"
+										   press=".handleClose"
+										   visible="{=${Component>/actionButtonsInfo/midColumn/closeColumn} !== null}" />
+				</uxap:navigationActions>
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+		<uxap:sections>
+			<uxap:ObjectPageSection title="{i18n>basicInfo}" id="pageSectionTitle" titleUppercase="false">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+						<uxap:blocks>
+							<l:VerticalLayout id="layoutHeader" width="100%" class="gridWrapper">
+								<l:Grid>
+									<VBox>
+										<Label text="{i18n>noticeTitle}" labelFor="noticeTitle" />
+										<Input id="noticeTitle" value="{detailData>/title}" editable="{detailViewMode>/isEditMode}" maxLength="40" required="true"/>
+										<layoutData>
+											<l:GridData span="XL4 L4 M4 S12" />
+										</layoutData>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>noticeRegEmpName}" labelFor="noticeRegisterName" />
+										<Input id="noticeRegisterName" value="{detailData>/regEmpName}" enabled="false" required="true"/>
+										<layoutData>
+											<l:GridData span="XL4 L4 M4 S12" />
+										</layoutData>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>noticeRegDate}" labelFor="noticeRegisterDate" />
+										<DatePicker
+												enabled="false"
+												id="noticeRegisterDate"
+												value="{
+												'path':'detailData>/regDate',
+												'type':'sap.ui.model.type.Date',
+												'formatOptions': {
+													'pattern': 'yyyy.MM.dd'
+												}
+											}"/>
+										<layoutData>
+											<l:GridData span="XL4 L4 M4 S12" />
+										</layoutData>
+									</VBox>
+								</l:Grid>
+							</l:VerticalLayout>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+			<uxap:ObjectPageSection title="{i18n>content}" id="pageSectionContents" titleUppercase="true">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="pageSubSection1">
+						<uxap:blocks>
+							<l:VerticalLayout id="idVerticalLayout" class="word-break" width="100%">
+								<OverflowToolbar id="otbSubheader">
+									<ToolbarSpacer/>
+									<CheckBox id="checkBoxImportantYn" selected="{detailData>/importantYn}" text="{i18n>importantYn}" editable="{detailViewMode>/isEditMode}"/>
+								</OverflowToolbar>
+							</l:VerticalLayout>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+			<uxap:ObjectPageSection title="{i18n>attachedFile}" id="pageSectionAttachedFile" titleUppercase="true">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+						<uxap:blocks>
+							<l:VerticalLayout class="word-break" width="100%">
+								<VBox>
+									
+									<layoutData>
+										<l:GridData span="XL12 L12 M12 S12" />
+									</layoutData>
+								</VBox>
+							</l:VerticalLayout>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+	</uxap:ObjectPageLayout>
+</mvc:View>

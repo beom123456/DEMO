@@ -1,0 +1,29 @@
+html[dir="ltr"].myAppDemoWT .myCustomButton.sapBtn{
+    margin-right: 0.125rem
+}
+html[dir="rtl"].myAppDemoWT .myCustomButton.sapBtn{
+    margin-right: 0.125rem
+}
+.myAppDemoWT .myCustomText {
+    display:inline-block;
+    font-weight: bold;
+}
+.menucolor {
+    background-color: #092f55 !important;
+}
+.leftAlignedCell {
+    text-align: left !important; 
+    width: 100%;                 
+}
+.alignRightCell {
+    text-align: right !important;
+    width: 100%;
+}
+.highlightNotice {
+    font-size: 1.2rem; 
+    font-weight: bold; 
+    color: #0a287b;
+    margin-top: 1rem;       
+ }
+
+ 

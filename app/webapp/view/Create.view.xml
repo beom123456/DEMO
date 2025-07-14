@@ -1,0 +1,95 @@
+<mvc:View controllerName = "project1.controller.Create"
+		  xmlns="sap.m"
+		  xmlns:f="sap.f"
+		  xmlns:mvc="sap.ui.core.mvc"
+		  xmlns:form="sap.ui.layout.form"
+		  xmlns:layout="sap.ui.layout"
+		  xmlns:rich="sap.ui.richtexteditor"
+		  height="100%"
+		  >
+	<f:DynamicPage headerExpanded="true"  showFooter="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>createNotice}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<form:SimpleForm layout="ResponsiveGridLayout">
+					<form:content>
+						<VBox>
+							<Label text="제목 : "/>
+							<Input id="InputNoticeTitle"/>
+							<layoutData>
+								<layout:GridData span ="XL4 L4 M4 S4"/>
+							</layoutData> 
+						</VBox>
+						<VBox>
+							<Label text="작성자 : "/>
+							<Input id="InputNoticeAuthor" editable="false"/>
+							<layoutData>
+								<layout:GridData span ="XL4 L4 M4 S4"/>
+							</layoutData> 
+						</VBox>
+						<VBox>
+							<Label text="작성일 : "/>
+							<Input id="InputNoticeDate" editable="false"/>
+							<layoutData>
+								<layout:GridData span ="XL4 L4 M4 S4"/>
+							</layoutData> 
+						</VBox>
+					</form:content>
+				</form:SimpleForm>	
+			</f:DynamicPageHeader>	
+		</f:header>
+		<f:content>
+			<VBox>
+				<Label text="내용"/>
+				<HBox justifyContent="End" width="100%">
+					<CheckBox id="CheckImportant" text="중요" selected="{noticeModel>/important}" />
+				</HBox>
+				<rich:RichTextEditor customToolbar="true" showGroupFont="true" showGroupLink="true" showGroupInsert="true" editable="true"
+									 width="100%" height="400px" value="내용을 입력하세요" sanitizeValue="false"/>
+				<VBox class="sapUiSmallMarginTop">
+					<HBox justifyContent="SpaceBetween" alignItems="Center" width="100%">
+						<Label text="첨부파일" />
+						<Button text="등록" icon="sap-icon://add" press=".onAddFile"/>
+					</HBox>
+
+					<Table id="FileTable"
+							items="{noticeModel>/fileList}"
+							noDataText="No data"
+							inset="false"
+							width="100%">
+						<columns>
+						<Column>
+							<Text text="파일명" />
+						</Column>
+						</columns>
+						<items>
+						<ColumnListItem>
+							<cells>
+							<Link text="{noticeModel>name}" press=".onOpenFile" />
+							</cells>
+						</ColumnListItem>
+						</items>
+					</Table>
+					</VBox>
+			</VBox>
+		</f:content>
+		
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer />
+				<Button text="등록" icon="sap-icon://add" type="Accept" press="onCreate" />
+			</OverflowToolbar>
+   		 </f:footer>
+		
+
+	</f:DynamicPage>
+</mvc:View>
+
+
+			

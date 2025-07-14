@@ -1,0 +1,93 @@
+<mvc:View
+    controllerName="project1.controller.OrderDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout">
+
+    <f:DynamicPage
+        id="updatePage"
+        headerExpanded="false"
+        showFooter="true"
+        toggleHeaderOnTitleClick="true">
+
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <OverflowToolbarButton
+                            id="NavBackButton"
+                            type="Transparent"
+                            icon="sap-icon://nav-back"
+                            press="onBack" />
+                        <Title text="물품 요청 상세" />
+                    </HBox>
+                </f:heading>
+                <f:snappedContent>
+                    <form:SimpleForm layout="ResponsiveGridLayout">
+                        <form:content>
+
+                            <!-- 요청 상세 정보 Panel -->
+                            <Panel id="RequestDetail" headerText="요청 미리보기" width="80%" expandable="true" expanded="true" visible="true" height="750px">
+                                <VBox class="sapUiContentPadding" height="100%">
+                                    <Text text="물품 구매 요청서" textAlign="Center" class="sapUiMediumMarginBottom sapUiMediumMarginTop" />
+
+                                    <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+                                        <Text text="작성일: {RequestModel>/0/request_date}" />
+                                        <Text text="요청 부서: 구매부" class="sapUiTinyMarginBegin" />
+                                    </HBox>
+
+                                    <Table width="100%" inset="false">
+                                        <columns>
+                                            <Column><Text text="요청번호" /></Column>
+                                            <Column><Text text="요청일자" /></Column>
+                                            <Column><Text text="요청물품" /></Column>
+                                            <Column><Text text="요청수량" /></Column>
+                                            <Column><Text text="개당가격" /></Column>
+                                            <Column><Text text="총가격" /></Column>
+                                            <Column><Text text="요청사유" /></Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Text id="Req" text="{RequestModel>request_number}" />
+                                                    <Text text="{RequestModel>createdAt}" />
+                                                    <Text text="{RequestModel>request_product}" />
+                                                    <Text text="{RequestModel>request_quantity}" />
+                                                    <Text text="{RequestModel>request_estimated_price}" />
+                                                    <Text text="{RequestModel>request_total_price}" />
+                                                    <Text text="{RequestModel>request_reason}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+
+                                    <HBox justifyContent="End" class="sapUiMediumMarginTop">
+                                        <Text text="신청자: {RequestModel>/0/requestor}" />
+                                    </HBox>
+
+                                    <!-- 버튼들 추가 -->
+                                    <HBox justifyContent="End" visible="{visibleMode>/footer}" class="sapUiTinyMarginTop">
+                                        <Button type="Emphasized" text="승인" press="onApprove" />
+                                        <Button type="Reject" text="반려" press="onReject" class="sapUiTinyMarginBegin" />
+                                        <Button id="BtnDelete" text="삭제" icon="sap-icon://delete" type="Negative" class="sapUiTinyMarginBegin" press="onDeleteRequest" />
+                                        <Button icon="sap-icon://edit" text="수정 화면 이동" press="onNavToEditPage" class="sapUiTinyMarginBegin" />
+                                    </HBox>
+                                </VBox>
+                            </Panel>
+                        </form:content>
+                    </form:SimpleForm>
+                </f:snappedContent>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://nav-back" text="이전 요청" type="Default" press="onPreviousRequest" />
+                <Button icon="sap-icon://nav-forward" text="다음 요청" type="Default" press="onNextRequest" />
+                <ToolbarSpacer />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

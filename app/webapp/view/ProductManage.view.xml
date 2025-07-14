@@ -1,0 +1,114 @@
+<mvc:View
+  controllerName="project1.controller.ProductManage"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+  xmlns:layout="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form"
+  xmlns:f="sap.f"
+  xmlns:cssgrid="sap.ui.layout.cssgrid"
+  height="100%">
+
+  <f:DynamicPage id="productManagePage">
+    <f:header>
+      <f:DynamicPageHeader pinnable="true">
+        <VBox class="sapUiSmallMargin">
+          <form:SimpleForm layout="ResponsiveGridLayout">
+            <form:content>
+
+              <!-- 제품명 -->
+              <VBox>
+                <Label text="제품명" />
+                <Input id="productNameInput" placeholder="제품명을 입력하세요" />
+                <layoutData>
+                  <layout:GridData span="XL3 L2 M6 S12" />
+                </layoutData>
+              </VBox>
+
+              <!-- 제품 단위 -->
+              <VBox>
+                <Label text="제품 단위 (예: 10개씩)" />
+                <Input id="productUnitInput" placeholder="예: 10" type="Number" />
+                <layoutData>
+                  <layout:GridData span="XL3 L2 M6 S12" />
+                </layoutData>
+              </VBox>
+
+              <!-- 개당 가격 -->
+              <VBox>
+                <Label text="개당 가격 (원)" />
+                <Input id="productPriceInput" placeholder="예: 10000" type="Number" />
+                <layoutData>
+                  <layout:GridData span="XL3 L2 M6 S12" />
+                </layoutData>
+              </VBox>
+
+              <!-- 최대 요청 개수 -->
+              <VBox>
+                <Label text="최대 요청 가능 개수" />
+                <Input id="productMaxQtyInput" placeholder="예: 100" type="Number" />
+                <layoutData>
+                  <layout:GridData span="XL3 L2 M6 S12" />
+                </layoutData>
+              </VBox>
+
+              <!-- 버튼 -->
+              <HBox justifyContent="End" class="sapUiSmallMarginTop">
+                <Button text="검색" type="Emphasized" press="onSearchProduct" />
+                <Button text="초기화" type="Transparent" press="onReset" class="sapUiTinyMarginBegin" />
+                <Button text="물품 등록" icon="sap-icon://add" type="Accept" press="onCreateProduct" />
+                <layoutData>
+                  <layout:GridData span="XL12 L12 M12 S12" />
+                </layoutData>
+              </HBox>
+
+            </form:content>
+          </form:SimpleForm>
+        </VBox>
+      </f:DynamicPageHeader>
+    </f:header>
+
+    <!-- 콘텐츠: 제품 카드 리스트 -->
+     <f:content>
+      <f:GridList
+        id="productCardGrid"
+        items="{ProductModel>/Products}"
+        growing="false"
+        width="100%"
+        noDataText="등록된 제품이 없습니다."
+        class="sapUiTinyMarginTop sapUiTinyMarginBottom">
+
+        <!-- 핵심: 반응형 고정 박스 레이아웃 적용 -->
+        <f:customLayout>
+          <cssgrid:GridBoxLayout boxesPerRowConfig="XL4 L5 M3 S1" boxMinWidth="20rem"  />
+        </f:customLayout>
+
+        <f:items>
+          <f:GridListItem>
+            <VBox
+              class="sapUiContentPadding sapUiSmallMargin customBox"
+              width="100%"
+              alignItems="Center"
+              justifyContent="Center">
+
+            <HBox justifyContent="End" width="80%"> 
+              <Button
+                icon="sap-icon://delete"
+                type="Ghost"
+                press="onDeleteProduct"
+                tooltip="제품 삭제"
+                />
+            </HBox>
+              <Image src="{ProductModel>image}" width="80px" height="80px" class="sapUiSmallMarginBottom" />
+              <Text text="{ProductModel>name}" wrapping="true" class="sapUiSmallMarginBottom" />
+              <Text text="단위: {ProductModel>unit}" class="sapUiTinyMarginBottom" />
+              <Text text="가격: {ProductModel>price}원" class="sapUiTinyMarginBottom" />
+              <Text text="최대 수량: {ProductModel>maxQty}개" />
+
+            </VBox>
+          </f:GridListItem>
+        </f:items>
+      </f:GridList>
+    </f:content>
+  </f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,238 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "project1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.18.0",
+      "toolsId": "8a228e6b-a009-48b9-bf46-cae251c8855b"
+    },
+    "dataSources":{
+      "mainService":{
+        "uri": "/odata/v4/request/",
+        "type": "OData",
+        "settings":{
+          "odataVersion":"4.0"
+        }
+      },
+      "ProductService":{
+        "uri": "/odata/v4/product/",
+        "type": "OData",
+        "settings":{
+        "odataVersion":"4.0"
+      }
+    }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.136.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project1.i18n.i18n"
+        }
+      },
+      "RequestModel":{
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "groupId": "$auto",
+          "synchronizationMode": "None",
+          "autoExpandSelect": true
+        }
+      },
+      "ProductModel": {
+        "type": "sap.ui.model.odata.v4.ODataModel",
+        "dataSource": "ProductService",
+        "settings": {
+          "operationMode": "Server",
+          "groupId": "$auto",
+          "synchronizationMode": "None",
+          "autoExpandSelect": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "project1.view",
+        "async": true,
+        "viewPath": "project1.view"
+      },
+      "routes": [
+        {
+          "name": "Routeapp",
+          "pattern": ":?query:",
+          "target": [
+            "Targetapp"
+          ]
+        },
+        {
+          "name": "CreateOrder",
+          "pattern": "CreateOrder",
+          "target":[
+            "CreateOrder"
+          ]
+        },{
+          "name": "Request",
+          "pattern": "Request",
+          "target":[
+            "Request"
+          ]
+        },{
+          "name": "OrderDetail",
+          "pattern": "OrderDetail/{num}",
+          "target" :[
+            "OrderDetail"
+          ]
+        },
+        {
+          "name": "EditRequest",
+          "pattern": "EditRequest/{num}",
+          "target": "EditRequest"
+      },{
+          "name": "ProductManage",
+          "pattern": "ProductManage",
+          "target": "ProductManage"
+      },
+      {
+        "name": "CreateProduct",
+          "pattern": "CreateProduct",
+          "target": "CreateProduct"
+      },
+      {
+        "name": "Create",
+          "pattern": "Create",
+          "target": "Create"
+      },
+      {
+        "name": "Detail",
+        "pattern": "Detail",
+        "target": "Detail"
+      },
+      {
+        "name": "Practice",
+        "pattern": "Practice",
+        "target": "Practice"
+      }
+      ],
+      "targets": {
+        "Targetapp": {
+          "id": "app",
+          "name": "app"
+        },
+        "CreateOrder":{
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "CreateOrder",
+          "viewName": "CreateOrder"
+        },
+        "Request":{
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "Request",
+          "viewName": "Request"
+        },
+        "OrderDetail":{
+          "viewType": "XML",
+          "transition" : "slide",
+          "viewId": "OrderDetail",
+          "viewName": "OrderDetail"
+        },
+        "EditRequest":{
+          "viewType": "XML",
+          "transition" : "slide",
+          "viewId": "OrderEdit",
+          "viewName" : "OrderEdit"
+        },
+        "ProductManage":{
+          "viewType": "XML",
+          "transition" : "slide",
+          "viewId": "ProductManage",
+          "viewName" : "ProductManage"
+        },
+        "CreateProduct":{
+          "viewType": "XML",
+          "transition" : "slide",
+          "viewId": "CreateProduct",
+          "viewName" : "CreateProduct"
+        },
+        "Create":{
+          "viewType": "XML",
+          "transition" : "slide",
+          "viewId": "Create",
+          "viewName" : "Create"
+        },
+        "Detail":{
+          "viewType": "XML",
+          "transition" : "slide",
+          "viewId": "Detail",
+          "viewName" : "Detail"
+        },
+        "Practice":{
+          "viewType": "XML",
+          "transition" : "slide",
+          "viewId": "Practice",
+          "viewName" : "Practice"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "project1.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

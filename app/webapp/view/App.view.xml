@@ -1,0 +1,27 @@
+<mvc:View controllerName="project1.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt">
+    <tnt:ToolPage id="toolPage">
+        <tnt:header>
+            <tnt:ToolHeader class="menucolor">
+                <Image src="image/image.png" class="sapSmallMargin" height="50px" width="80px"   press="onLogoPress"/>
+                <MenuButton enabled="true" text="물품요청">
+                    <menu>
+                        <Menu>
+                            <MenuItem text="물품 요청 리스트" press="onLogoPress"/>
+                            <MenuItem text="물품 요청 생성" press="onCreateOrder"/>
+                            <MenuItem text="요청 물품 관리" press="onCreateProduct"/>
+                        </Menu>
+                    </menu>
+                </MenuButton>
+            </tnt:ToolHeader>
+        </tnt:header>
+        <tnt:mainContents>
+            <App id="app">
+            
+            </App>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

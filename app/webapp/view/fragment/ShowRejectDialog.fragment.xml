@@ -1,0 +1,35 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core">
+    <Dialog
+        id="ShowRejectDialog"
+        title="반려사유"
+>
+        <content>
+            <form:SimpleForm
+                id="ShowRejectForm"
+                editable="true"
+                layout="ResponsiveGridLayout"
+            >
+                <form:content>
+                     <Text id="RejectReasonCheck" text="{dialogModel>/rejectReason}">
+                        <layoutData>
+                            <l:GridData
+                                span="XL10 L10 M10S12"
+                                linebreak="true"
+                            />
+                        </layoutData>
+                    </Text>
+                </form:content>
+            </form:SimpleForm>
+        </content>
+        <endButton>
+            <Button
+                text="확인"
+                press="onCancelRejectReason"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
