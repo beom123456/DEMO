@@ -195,8 +195,12 @@ sap.ui.define([
             
             const oModel = this.getOwnerComponent().getModel("RequestModel");
 
-            const aDeletePromises = aSelectedIndicies.map((iIndex) => {
+            const aDeletePromises = aSelectedIndicies.map(iIndex => {
                 const oContext = oTable.getContextByIndex(iIndex);
+
+                if(!oContext){
+                    console.error("값없음")
+                }
 
                 return oContext.delete().catch((err)=>{
                     console.error(`삭제실패: ${err.message}`);

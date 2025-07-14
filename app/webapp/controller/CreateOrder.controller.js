@@ -32,6 +32,7 @@ sap.ui.define([
               request_total_price: "",
               price : 0,
               unit : 0,
+              request_reason: ""
             });
 
             this.getView().setModel(oModel, "CreateModel");
@@ -110,8 +111,10 @@ sap.ui.define([
               requestor: oData.requestor,
               request_state: oData.request_state,
               request_estimated_price: parseInt(oData.request_estimated_price, 10) || 0,
-              request_total_price: oData.request_quantity * oData.request_estimated_price,
-              request_state: "In Progress"
+              request_total_price: parseInt(oData.request_quantity * oData.request_estimated_price, 10) || 0,
+              request_state: "In Progress",
+              request_reason: oData.request_reason
+            
             }).created();
         
             sap.m.MessageToast.show("요청이 성공적으로 생성되었습니다.");

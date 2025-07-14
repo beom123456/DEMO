@@ -195,27 +195,12 @@ sap.ui.define([
               sap.m.MessageToast.show("요청 이동 실패: " + err.statusText);
             }
           },
+
           onDeleteRequest: async function () {
-            const oView = this.getView();
-            const reqTextControl = oView.byId("TextRequestNumber");
+            let oView = this.getView();
+            let oModel = this.getView().getModel("RequestModel");
+            let oContext = oView.getBindingContext("RequestModel");
         
-            if (!reqTextControl) {
-                sap.m.MessageBox.error("요청 번호 컨트롤을 찾을 수 없습니다.");
-                return;
-            }
-        
-            const reqText = reqTextControl.getText();
-            const requestNumber = parseInt(reqText);
-        
-            if (isNaN(requestNumber)) {
-                sap.m.MessageBox.error("요청 번호가 올바르지 않습니다.");
-                return;
-            }
-        
-            const url = `/odata/v4/request/Request(${requestNumber})`;
-            console.log("삭제 URL:", url);
-        
-            // 사용자 확인 창
             sap.m.MessageBox.confirm(
                 "삭제하시겠습니까?\n삭제 후 데이터 복원이 불가능합니다.",
                 {
@@ -224,13 +209,12 @@ sap.ui.define([
                     emphasizedAction: sap.m.MessageBox.Action.OK,
                     onClose: async (sAction) => {
                         if (sAction === sap.m.MessageBox.Action.OK) {
-                            try {
-                                await fetch(url, { method: "DELETE" });
-                                sap.m.MessageToast.show("삭제 완료");
-                                this.getOwnerComponent().getRouter().navTo("Routeapp");
-                            } catch (err) {
-                                sap.m.MessageBox.error("삭제 중 오류 발생: " + err.message);
-                            }
+                           oContext.delete().then(() =>{
+                            oModel.refresh();
+                            MessageToast.show("삭제되었습니다.");
+                            this.getOwnerComponent().getRoute().navTo("Routeapp");
+                           }).catch((oError) =>{
+                            MessageToast.show("삭제실패 :" +oError.message);                           })
                         }
                     }
                 }
