@@ -196,10 +196,13 @@ sap.ui.define([
             }
           },
 
+          //삭제
           onDeleteRequest: async function () {
+            const that = this;
             let oView = this.getView();
             let oModel = this.getView().getModel("RequestModel");
             let oContext = oView.getBindingContext("RequestModel");
+            
         
             sap.m.MessageBox.confirm(
                 "삭제하시겠습니까?\n삭제 후 데이터 복원이 불가능합니다.",
@@ -212,7 +215,7 @@ sap.ui.define([
                            oContext.delete().then(() =>{
                             oModel.refresh();
                             MessageToast.show("삭제되었습니다.");
-                            this.getOwnerComponent().getRoute().navTo("Routeapp");
+                            that.onBack();
                            }).catch((oError) =>{
                             MessageToast.show("삭제실패 :" +oError.message);                           })
                         }

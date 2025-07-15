@@ -104,14 +104,17 @@ sap.ui.define([
 
           try {
             const oCreateBinding = oDataModel.bindList("/Request");
+            const estimated_price = parseInt(oData.request_estimated_price.replace(/,/g,""),10) || 0;
+            const request_quantity = parseInt(oData.request_quantity.replace(/,/g,""),10) ||0;
+
             await oCreateBinding.create({
               request_number: nextNumber,
               request_product: oData.request_product,
-              request_quantity: parseInt(oData.request_quantity, 10) || 0,
+              request_quantity: request_quantity,
               requestor: oData.requestor,
               request_state: oData.request_state,
-              request_estimated_price: parseInt(oData.request_estimated_price, 10) || 0,
-              request_total_price: parseInt(oData.request_quantity * oData.request_estimated_price, 10) || 0,
+              request_estimated_price: estimated_price,
+              request_total_price: request_quantity * estimated_price,
               request_state: "In Progress",
               request_reason: oData.request_reason
             
